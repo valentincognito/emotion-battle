@@ -1,4 +1,5 @@
 const webcam = new Webcam(document.getElementById('webcam'))
+let emotions = ["angry" ,"disgust","scared", "happy", "sad", "surprised", "neutral"]
 let model
 
 init()
@@ -24,7 +25,6 @@ async function predict() {
     const predictedClass = tf.tidy(() => {
       // Capture the frame from the webcam.
       const img = webcam.capture()
-      console.log(img)
 
       // Make a prediction through our newly-trained model using the activation
       // from mobilenet as input.
@@ -32,13 +32,25 @@ async function predict() {
 
       // Returns the index with the maximum probability. This number corresponds
       // to the class the model thinks is the most probable given the input.
-      return predictions.as1D().argMax()
+      return predictions
+      //.as1D().argMax()
     })
 
-    const classId = (await predictedClass.data())[0];
-    predictedClass.dispose();
+    const classId = await predictedClass.data()
 
-    console.log(classId)
+    let count = 0
+    for (pred of classId) {
+      $('.emotion span').eq(count).html(Math.round(pred * 100))
+      count++
+    }
+
+
+    //console.log(classId)
+
+    predictedClass.dispose()
+
+
+    //console.log(emotions[classId])
 
     await tf.nextFrame()
   }
