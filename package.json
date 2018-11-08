@@ -1,0 +1,23 @@
+{
+  "name": "emotion-battle",
+  "version": "1.0.0",
+  "description": "An interactive game using tensorflow.js",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/valentincognito/emotion-battle.git"
+  },
+  "author": "valentincognito",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/valentincognito/emotion-battle/issues"
+  },
+  "homepage": "https://github.com/valentincognito/emotion-battle#readme",
+  "dependencies": {
+    "express": "^4.16.4",
+    "socket.io": "^2.1.1"
+  }
+}
