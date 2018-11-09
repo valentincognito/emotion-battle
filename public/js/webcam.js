@@ -102,4 +102,25 @@ class Webcam {
       }
     })
   }
+
+
+  async setupCamera() {
+    if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+      const stream = await navigator.mediaDevices.getUserMedia({
+        'audio': false,
+        'video': {facingMode: 'environment'}
+      });
+      window.stream = stream;
+      this.webcamElement.srcObject = stream;
+      return new Promise(resolve => {
+        this.webcamElement.onloadedmetadata = () => {
+          resolve([this.webcamElement.videoWidth,
+              this.webcamElement.videoHeight]);
+        };
+      });
+    }
+
+    return null;
+  }
+
 }
