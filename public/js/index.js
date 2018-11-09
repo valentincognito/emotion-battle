@@ -17,8 +17,6 @@ async function init() {
   predict()
 }
 
-
-
 async function predict() {
   //ui.isPredicting()
   while (isPredicting) {
@@ -44,13 +42,7 @@ async function predict() {
       count++
     }
 
-
-    //console.log(classId)
-
     predictedClass.dispose()
-
-
-    //console.log(emotions[classId])
 
     await tf.nextFrame()
   }
