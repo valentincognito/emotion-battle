@@ -1,3 +1,20 @@
+//globals
+let socket = io()
+
+//generate random room name
+if (!location.hash) {
+  location.hash = Math.floor(Math.random() * 0xFFFFFF).toString(16)
+}
+const roomHash = location.hash.substring(1)
+socket.emit('room join', roomHash)
+
+//socket events
+socket.on('start rtc', function(isOfferer){ startWebRTC(isOfferer) })
+socket.on('respond offer', function(message){ respondOffer(message)})
+socket.on('add candidate', function(message){ addCandidate(message) })
+
+
+
 const webcam = new Webcam(document.getElementById('webcam'))
 let emotions = ["angry" ,"disgust","scared", "happy", "sad", "surprised", "neutral"]
 let model

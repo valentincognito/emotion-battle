@@ -13,6 +13,10 @@
     <title>emotion - battle</title>
   </head>
   <body>
+
+    <video id="remoteVideo" autoplay></video>
+    <video id="localVideo" autoplay muted></video>
+
     <video autoplay playsinline muted id="webcam" width="48" height="48"></video>
 
     <div class="">
@@ -27,9 +31,11 @@
   </body>
 </html>
 
+<script src="/socket.io/socket.io.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@0.13.3/dist/tf.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"
 			  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
 			  crossorigin="anonymous"></script>
 <script src="js/webcam.js"></script>
+<script src="js/web-rtc-utils.js"></script>
 <script src="js/index.js"></script>
