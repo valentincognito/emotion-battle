@@ -38,7 +38,7 @@ function startWebRTC(isOfferer) {
     video: true,
   }).then(stream => {
     // Display your local video in #localVideo element
-    localVideo.srcObject = stream
+    //localVideo.srcObject = stream
     // Add your stream to be sent to the conneting peer
     pc.addStream(stream)
   }, onError)
@@ -70,5 +70,5 @@ function localDescCreated(desc) {
 }
 
 function sendMessage(message) {
-  socket.emit('rtc message', message);
+  socket.emit('rtc message', roomHash, message);
 }

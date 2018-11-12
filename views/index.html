@@ -10,23 +10,30 @@
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="mobile-web-app-status-bar-style" content="transparent" />
 
+    <link rel="stylesheet" href="/css/style.css">
+
     <title>emotion - battle</title>
   </head>
   <body>
 
-    <video id="remoteVideo" autoplay></video>
-    <video id="localVideo" autoplay muted></video>
 
-    <video autoplay playsinline muted id="webcam" width="48" height="48"></video>
+    <div class="content">
 
-    <div class="">
-      <div class="emotion">angry <span></span> % </div>
-      <div class="emotion">disgust <span></span> % </div>
-      <div class="emotion">scared <span></span> % </div>
-      <div class="emotion">happy <span></span> % </div>
-      <div class="emotion">sad <span></span> % </div>
-      <div class="emotion">surprised <span></span> % </div>
-      <div class="emotion">neutral <span></span> % </div>
+      <div class="video-feed">
+        <video id="remoteVideo" autoplay></video>
+        <!-- <video id="localVideo" autoplay muted></video> -->
+        <video id="webcam" autoplay playsinline muted width="48" height="48"></video>
+      </div>
+
+      <div class="emotions">
+        <div class="emotion">angry <span></span> % </div>
+        <div class="emotion">disgust <span></span> % </div>
+        <div class="emotion">scared <span></span> % </div>
+        <div class="emotion">happy <span></span> % </div>
+        <div class="emotion">sad <span></span> % </div>
+        <div class="emotion">surprised <span></span> % </div>
+        <div class="emotion">neutral <span></span> % </div>
+      </div>
     </div>
   </body>
 </html>

@@ -48,11 +48,11 @@ io.on('connection', function(socket){
     console.log('number of client:', io.sockets.adapter.rooms[id].length)
   })
 
-  socket.on('rtc message', function(message){
+  socket.on('rtc message', function(roomHash, message){
     if (message.sdp) {
-      socket.to('d5c357').emit('respond offer', message.sdp)
+      socket.to(roomHash).emit('respond offer', message.sdp)
     } else if (message.candidate) {
-      socket.to('d5c357').emit('add candidate', message.candidate)
+      socket.to(roomHash).emit('add candidate', message.candidate)
     }
   })
 }) //io connection event end
