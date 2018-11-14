@@ -7,7 +7,7 @@ if (!location.hash) {
 }
 const roomHash = location.hash.substring(1)
 const webcam = new Webcam(document.getElementById('webcam'))
-let emotions = ["angry" ,"disgust","scared", "happy", "sad", "surprised", "neutral"]
+let emotions = ["angry","disgust","scared","happy","sad","surprised","neutral"]
 let model
 
 
@@ -17,7 +17,8 @@ socket.on('respond offer', function(message){ respondOffer(message)})
 socket.on('add candidate', function(message){ addCandidate(message) })
 //TODO improve the player disconnection
 socket.on('player left', function(){ location.reload() })
-socket.on('game start', function(){ startGame() })
+socket.on('room ready', function(){ nextEmotion() })
+socket.on('next level', function(){ displayStep02() })
 
 //on click events
 $('.bu-ready').click(function(){
@@ -35,6 +36,8 @@ async function init() {
   }
 
   model = await tf.loadModel('models/model.json')
+
+  displayStep01()
 
   socket.emit('room join', roomHash)
 
@@ -54,11 +57,14 @@ async function predict() {
 
     const predictions = await predictedClass.data()
 
-    let count = 0
-    for (pred of classId) {
-      $('.emotion span').eq(count).html(Math.round(pred * 100))
-      count++
-    }
+    // let count = 0
+    // for (pred of predictions) {
+    //   $('.emotion span').eq(count).html(Math.round(pred * 100))
+    //   count++
+    // }
+
+    let index = emotions.indexOf(g_emotionsList[g_emotionIndex])
+    $('.current-emotion-level').html( Math.round(predictions[index] * 100) )
 
     predictedClass.dispose()
 
@@ -66,13 +72,55 @@ async function predict() {
   }
 }
 
+let g_emotionsList = ["happy","sad","angry","scared","disgust"]
+let g_emotionIndex = 0
 
-function startGame(){
-  //display emotion to mimic
+let g_emotionLabel = $('.current-emotion .label')
 
-  //get local emotion percentage
+let countdown = {
+  interval: null,
+  duration : 5,
+  Start : function() {
+    var timer = this.duration, minutes, seconds
+    this.interval = setInterval(function () {
+      minutes = parseInt(timer / 60, 10)
+      seconds = parseInt(timer % 60, 10)
 
-  //get romote emotion percentage
+      $('.timer .seconds').html(seconds)
+
+      if (--timer < 0) countdown.Stop()
+
+    }, 1000);
+  },
+  Stop: function(){
+    clearInterval(this.interval)
+    timer = this.duration
+
+    socket.emit('player ready')
+    g_emotionIndex++
+  }
+}
+
+function displayStep01(){
+  $('.step-01').show()
+  $('.step-01 .room-link .link').html(location.href)
+}
+function displayStep02(){
+  $('.step-01').hide()
+  $('.step-02').show()
+}
+
+function nextEmotion(){
+  //display emotion label
+  g_emotionLabel.html( g_emotionsList[g_emotionIndex] )
+
+
+  //start the timer
+  countdown.Start()
+
+
 
   //update gloabl score local and remote
+
+
 }

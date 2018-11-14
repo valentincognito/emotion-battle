@@ -48,6 +48,11 @@ io.on('connection', function(socket){
 
     console.log('joined', id)
     console.log('number of client:', io.sockets.adapter.rooms[id].length)
+
+    //if two players are connected game can start
+    if (io.sockets.adapter.rooms[id].length == 2) {
+      io.to(id).emit('room ready')
+    }
   })
 
   socket.on('rtc message', function(roomHash, message){
@@ -58,11 +63,9 @@ io.on('connection', function(socket){
     }
   })
 
-  //check if players are ready to start the game
+  //check if players are ready to move on to next level
   socket.on('player ready', function() {
     socket._isReady = true
-
-    console.log(socket._isReady)
 
     let playerReadyCount = 0
     io.in(socket._room).clients((err , players) => {
@@ -72,8 +75,10 @@ io.on('connection', function(socket){
 
       if (playerReadyCount == 2) {
         console.log('all players are ready !')
-        //start the game
-        socket.to(socket._room).emit('game start')
+        //load the next level
+        io.to(socket._room).emit('next level')
+        //reset players ready state
+        resetPlayerReadyState(socket)
       }
     })
   })
@@ -82,3 +87,11 @@ io.on('connection', function(socket){
     socket.to(socket._room).emit('player left')
   })
 }) //io connection event end
+
+function resetPlayerReadyState(socket){
+  io.in(socket._room).clients((err , players) => {
+    for (player of players) {
+      io.sockets.connected[player]._isReady = false
+    }
+  })
+}

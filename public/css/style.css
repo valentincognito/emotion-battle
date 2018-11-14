@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Libre+Baskerville|Open+Sans:700,800');
+@import url('https://fonts.googleapis.com/css?family=Acme|Open+Sans:400,800');
 
 *,
 *:after,
@@ -7,8 +7,8 @@
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
-html{height: 100%;font-family: 'Open Sans', sans-serif;font-size: 15px;font-weight: 700;word-break: keep-all;}
-body{margin: 0px;color: #000;background-color: #fcfcfc;}
+html{height: 100%;font-family: 'Acme', sans-serif;font-size: 15px;font-weight: 700;word-break: keep-all;}
+body{margin: 0px;color: #fefefe;background-color: #080813;}
 
 a {background-color: transparent;text-decoration: none;color: inherit;display: block;opacity: 1;transition: all 0.2s ease-in-out;}
 a:active,
@@ -33,8 +33,8 @@ a:hover{outline: 0;text-decoration: none;color: inherit;}
 /** common **/
 #webcam{
   position: absolute;
-  bottom: 0px;
-  left: 0px;
+  top: 0px;
+  right: 0px;
   display: block;
   max-width: 100px;
   margin: 0 auto;
@@ -45,20 +45,136 @@ a:hover{outline: 0;text-decoration: none;color: inherit;}
   width: 100%;
   margin: 0 auto;
 }
-#localVideo{
-  position: absolute;
-  bottom: 0px;
-  left: 0px;
-  display: block;
-  max-width: 100px;
+.content{
+  max-width: 320px;
+  height: 100%;
   margin: 0 auto;
+  /*background-image: url('../images/background.jpg');*/
 }
-
-.video-feed{
+.step{
+  display: none;
   position: relative;
 }
+
+.step-01 h1{margin: 100px 0 40px;}
+.step-01 h1 img{
+  width: 100%;
+}
+.step-01 .waiting-players{
+  font-family: 'Open Sans';
+  font-weight: 400;
+  font-size: 13px;
+  text-align: center;
+}
+.step-01 .room-link{
+  font-family: 'Open Sans';
+  font-weight: 800;
+  font-size: 14px;
+  text-align: center;
+}
+.step-01 .room-link .link{
+  width: 262px;
+  height: 47px;
+  margin: 100px auto 10px;
+  padding-top: 15px;
+  font-size: 12px;
+  font-weight: 400;
+  background-image: url('../images/room-link-btn.png');
+  background-size: 100%;
+}
+.step-01 .room-link .description{
+  display: block;
+  font-size: 12px;
+  text-transform: uppercase;
+}
+
+
+.step-02 .video-feed{
+  position: relative;
+  width: 320px;
+  height: 320px;
+}
+.step-02 .video-feed .frame{
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 320px;
+  height: 320px;
+  background-size: 100%;
+  background-image: url('../images/webcam-frame.png');
+}
+.step-02 .video-feed .inner{
+  width: 300px;
+  height: 300px;
+  margin: 0 auto;
+  padding: 26px;
+  overflow: hidden;
+}
+.step-02 .video-feed .remote-frame{
+  position: absolute;
+  top: 45px;
+  right: 38px;
+  width: 48px;
+  height: 48px;
+  overflow: hidden;
+}
+.step-02 .bu-ready{
+  width: 213px;
+  height: 75px;
+  font-family: "Acme";
+  font-size: 30px;
+  color: #f3f7ff;
+  border: none;
+  background: none;
+  background-image: url('../images/ready-btn.png');
+  background-size: 100%;
+}
+
+
 
 .emotions{
   width: 100%;
   padding: 10px;
+}
+
+/* loading effect */
+.spinner {
+  width: 40px;
+  height: 40px;
+  position: relative;
+  margin: 20px auto;
+}
+
+.double-bounce1, .double-bounce2 {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background-color: #333;
+  opacity: 0.6;
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  -webkit-animation: sk-bounce 2.0s infinite ease-in-out;
+  animation: sk-bounce 2.0s infinite ease-in-out;
+}
+
+.double-bounce2 {
+  -webkit-animation-delay: -1.0s;
+  animation-delay: -1.0s;
+}
+
+@-webkit-keyframes sk-bounce {
+  0%, 100% { -webkit-transform: scale(0.0) }
+  50% { -webkit-transform: scale(1.0) }
+}
+
+@keyframes sk-bounce {
+  0%, 100% {
+    transform: scale(0.0);
+    -webkit-transform: scale(0.0);
+  } 50% {
+    transform: scale(1.0);
+    -webkit-transform: scale(1.0);
+  }
 }
