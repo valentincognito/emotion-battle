@@ -17,21 +17,50 @@
   <body>
     <div class="content">
 
-      <div class="video-feed">
-        <video id="remoteVideo" autoplay></video>
-        <!-- <video id="localVideo" autoplay muted></video> -->
-        <video id="webcam" autoplay playsinline muted width="48" height="48"></video>
-      </div>
+      <div class="step step-01">
+        <h1>
+          <img src="" alt="">
+        </h1>
+        <div class="">
+          loading
+        </div>
+        <div class="room-link">
+          <button type="button" name="button">link</button>
+          <span>Send this link to your friend !</span>
+        </div>
+      </div><!-- step-01 end -->
 
-      <div class="emotions">
-        <div class="emotion">angry <span></span> % </div>
-        <div class="emotion">disgust <span></span> % </div>
-        <div class="emotion">scared <span></span> % </div>
-        <div class="emotion">happy <span></span> % </div>
-        <div class="emotion">sad <span></span> % </div>
-        <div class="emotion">surprised <span></span> % </div>
-        <div class="emotion">neutral <span></span> % </div>
-      </div>
+      <div class="step step-02">
+        <div class="video-feed">
+          <video id="remoteVideo" autoplay></video>
+          <!-- <video id="localVideo" autoplay muted></video> -->
+          <video id="webcam" autoplay playsinline muted width="48" height="48"></video>
+        </div>
+
+
+        <div class="local-prediction">
+          <span class="label"></span>
+          <span class="percentage"></span>
+        </div>
+
+        <div class="timer"></div>
+
+        <div class="ready">
+          <button class="bu-ready" type="button" name="button">ready !</button>
+        </div>
+
+        <div class="">global score</div>
+
+        <div class="emotions">
+          <div class="emotion">angry <span></span> % </div>
+          <div class="emotion">disgust <span></span> % </div>
+          <div class="emotion">scared <span></span> % </div>
+          <div class="emotion">happy <span></span> % </div>
+          <div class="emotion">sad <span></span> % </div>
+          <div class="emotion">surprised <span></span> % </div>
+          <div class="emotion">neutral <span></span> % </div>
+        </div>
+      </div><!-- step-02 end -->
     </div><!-- content end -->
   </body>
 </html>

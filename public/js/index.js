@@ -17,10 +17,15 @@ socket.on('respond offer', function(message){ respondOffer(message)})
 socket.on('add candidate', function(message){ addCandidate(message) })
 //TODO improve the player disconnection
 socket.on('player left', function(){ location.reload() })
+socket.on('game start', function(){ startGame() })
+
+//on click events
+$('.bu-ready').click(function(){
+  socket.emit('player ready')
+})
 
 
 init()
-
 
 async function init() {
   try {
@@ -47,7 +52,7 @@ async function predict() {
       //return predictions.as1D().argMax()
     })
 
-    const classId = await predictedClass.data()
+    const predictions = await predictedClass.data()
 
     let count = 0
     for (pred of classId) {
@@ -59,4 +64,15 @@ async function predict() {
 
     await tf.nextFrame()
   }
+}
+
+
+function startGame(){
+  //display emotion to mimic
+
+  //get local emotion percentage
+
+  //get romote emotion percentage
+
+  //update gloabl score local and remote
 }

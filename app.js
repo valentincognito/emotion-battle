@@ -39,7 +39,8 @@ io.on('connection', function(socket){
 
     //join the room
     socket.join(id)
-    socket.room = id
+    socket._room = id
+    socket._isReady = false
 
     let isOfferer = io.sockets.adapter.rooms[id].length == 1 ? false : true
 
@@ -57,7 +58,27 @@ io.on('connection', function(socket){
     }
   })
 
+  //check if players are ready to start the game
+  socket.on('player ready', function() {
+    socket._isReady = true
+
+    console.log(socket._isReady)
+
+    let playerReadyCount = 0
+    io.in(socket._room).clients((err , players) => {
+      for (player of players) {
+        if (io.sockets.connected[player]._isReady) playerReadyCount++
+      }
+
+      if (playerReadyCount == 2) {
+        console.log('all players are ready !')
+        //start the game
+        socket.to(socket._room).emit('game start')
+      }
+    })
+  })
+
   socket.on('disconnect', function() {
-    socket.to(socket.room).emit('player left')
+    socket.to(socket._room).emit('player left')
   })
 }) //io connection event end
