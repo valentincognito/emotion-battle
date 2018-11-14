@@ -39,6 +39,7 @@ io.on('connection', function(socket){
 
     //join the room
     socket.join(id)
+    socket.room = id
 
     let isOfferer = io.sockets.adapter.rooms[id].length == 1 ? false : true
 
@@ -54,5 +55,9 @@ io.on('connection', function(socket){
     } else if (message.candidate) {
       socket.to(roomHash).emit('add candidate', message.candidate)
     }
+  })
+
+  socket.on('disconnect', function() {
+    socket.to(socket.room).emit('player left')
   })
 }) //io connection event end
