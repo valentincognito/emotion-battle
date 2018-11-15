@@ -23,7 +23,12 @@ socket.on('player score', function(score){ updateOpponentScore(score) })
 
 //on click events
 $('.bu-ready').click(function(){
+  $(this).addClass('ready')
   socket.emit('player ready')
+})
+
+$('.bu-play-again').click(function(){
+  location.reload()
 })
 
 
@@ -62,7 +67,7 @@ async function predict() {
       let index = emotions.indexOf(g_emotionsList[g_emotionIndex])
       g_emotionLevel.css('width', Math.round(predictions[index] * 100))
 
-      g_myScore = g_myScore + (predictions[index] * 0.1)
+      g_myScore = g_myScore + (predictions[index] * 0.3)
       g_myScoreLevel.css('width', g_myScore+'%')
       g_myScoreLabel.html(Math.round(g_myScore))
 
@@ -90,7 +95,7 @@ let g_oppScoreLabel = $('.scores .opponent .label')
 
 let countdown = {
   interval: null,
-  duration : 10,
+  duration : 5,
   Start : function() {
     g_isGameStarted = true
 
@@ -108,10 +113,17 @@ let countdown = {
   Stop: function(){
     clearInterval(this.interval)
     timer = this.duration
-
     g_isGameStarted = false
-    socket.emit('player ready')
+
     g_emotionIndex++
+
+    console.log('index', g_emotionIndex);
+
+    if (g_emotionIndex <= g_emotionsList.length - 1) {
+      socket.emit('player ready')
+    }else{
+      displayFinalScore()
+    }
   }
 }
 
@@ -123,10 +135,19 @@ function displayStep02(){
   $('.step-01').hide()
   $('.step-02').show()
 }
+function displayFinalScore(){
+  let me = Number(g_myScoreLabel.html())
+  let opponent = Number(g_oppScoreLabel.html())
+
+  $('.timer').hide()
+
+  if (me >= opponent) { //I won
+    $('.scores-result img').attr('src', '/images/win-message.png')
+  }
+  $('.scores-result').show()
+}
 
 function nextEmotion(){
-  console.log('load next emotion')
-
   //display emotion icon
   g_emotionIcon.attr('src', '/images/emotion-'+g_emotionsList[g_emotionIndex]+'.png')
 

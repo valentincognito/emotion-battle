@@ -141,6 +141,7 @@ a:hover{outline: 0;text-decoration: none;color: inherit;}
   background-image: url('../images/ready-btn.png');
   background-size: 100%;
 }
+.step-02 .bu-ready.ready{background-image: url('../images/ready-btn-a.png');}
 .step-02 .current-emotion{
   position: absolute;
   bottom: -45px;
@@ -258,6 +259,23 @@ a:hover{outline: 0;text-decoration: none;color: inherit;}
   height: 24px;
   border-radius: 4px;
   background-color: #d53048;
+}
+
+.step-02 .bu-play-again{
+  width: 213px;
+  height: 75px;
+  margin: 0px auto 20px;
+  background-image: url('../images/play-btn.png');
+  background-size: 100%;
+}
+.step-02 .scores-result{
+  display: none;
+  width: 200px;
+  margin: 0 auto;
+}
+.step-02 .scores-result img{
+  width: 100%;
+  margin-bottom: 20px;
 }
 
 
