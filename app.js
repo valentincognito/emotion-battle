@@ -83,6 +83,10 @@ io.on('connection', function(socket){
     })
   })
 
+  socket.on('player score', function(score) {
+    socket.to(socket._room).emit('player score', score)
+  })
+
   socket.on('disconnect', function() {
     socket.to(socket._room).emit('player left')
   })

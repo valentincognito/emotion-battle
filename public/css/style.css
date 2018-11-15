@@ -132,7 +132,7 @@ a:hover{outline: 0;text-decoration: none;color: inherit;}
 .step-02 .bu-ready{
   width: 213px;
   height: 75px;
-  margin: 30px auto;
+  margin: 0px auto 20px;
   font-family: "Acme";
   font-size: 30px;
   color: #f3f7ff;
@@ -194,9 +194,10 @@ a:hover{outline: 0;text-decoration: none;color: inherit;}
 }
 
 .step-02 .timer{
+  display: none;
   width: 182px;
   height: 99px;
-  margin: 20px auto;
+  margin: 0px auto 20px;
   padding-top: 20px;
   text-align: center;
   font-size: 45px;
@@ -214,11 +215,17 @@ a:hover{outline: 0;text-decoration: none;color: inherit;}
   background-size: 100%;
   background-image: url('../images/score-jauge-bg.png');
 }
+.step-02 .scores .me .label{
+  position: absolute;
+  top: 15px;
+  left: 27px;
+  font-size: 24px;
+}
 .step-02 .scores .me .level{
   position: absolute;
   top: 14px;
   left: 20px;
-  width: 40%;
+  width: 0%;
   height: 31px;
   border-radius: 4px;
   background-color: #69bd72;
@@ -237,11 +244,17 @@ a:hover{outline: 0;text-decoration: none;color: inherit;}
   left: 0px;
   width: 60px;
 }
+.step-02 .scores .opponent .label{
+  position: absolute;
+  top: 16px;
+  left: 58px;
+  font-size: 22px;
+}
 .step-02 .scores .opponent .level{
   position: absolute;
   top: 18px;
   left: 20px;
-  width: 40%;
+  width: 0%;
   height: 24px;
   border-radius: 4px;
   background-color: #d53048;

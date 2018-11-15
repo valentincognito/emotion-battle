@@ -19,6 +19,7 @@ socket.on('add candidate', function(message){ addCandidate(message) })
 socket.on('player left', function(){ location.reload() })
 socket.on('room ready', function(){ displayStep02() })
 socket.on('next level', function(){ nextEmotion() })
+socket.on('player score', function(score){ updateOpponentScore(score) })
 
 //on click events
 $('.bu-ready').click(function(){
@@ -57,8 +58,17 @@ async function predict() {
 
     const predictions = await predictedClass.data()
 
-    let index = emotions.indexOf(g_emotionsList[g_emotionIndex])
-    g_emotionLevel.css('width', Math.round(predictions[index] * 100))
+    if (g_isGameStarted) {
+      let index = emotions.indexOf(g_emotionsList[g_emotionIndex])
+      g_emotionLevel.css('width', Math.round(predictions[index] * 100))
+
+      g_myScore = g_myScore + (predictions[index] * 0.1)
+      g_myScoreLevel.css('width', g_myScore+'%')
+      g_myScoreLabel.html(Math.round(g_myScore))
+
+      //send score to server
+      socket.emit('player score', g_myScore)
+    }
 
     predictedClass.dispose()
 
@@ -68,15 +78,21 @@ async function predict() {
 
 let g_emotionsList = ["happy","sad","angry","scared","disgust"]
 let g_emotionIndex = 0
+let g_myScore = 0
+let g_isGameStarted = false
 
 let g_emotionIcon = $('.current-emotion .icon')
 let g_emotionLevel = $('.feed-info .jauge .level')
+let g_myScoreLevel = $('.scores .me .level')
+let g_myScoreLabel = $('.scores .me .label')
+let g_oppScoreLevel = $('.scores .opponent .level')
+let g_oppScoreLabel = $('.scores .opponent .label')
 
 let countdown = {
   interval: null,
-  duration : 5,
+  duration : 10,
   Start : function() {
-    console.log('timer start')
+    g_isGameStarted = true
 
     let timer = this.duration, minutes, seconds
     this.interval = setInterval(function () {
@@ -93,6 +109,7 @@ let countdown = {
     clearInterval(this.interval)
     timer = this.duration
 
+    g_isGameStarted = false
     socket.emit('player ready')
     g_emotionIndex++
   }
@@ -116,9 +133,12 @@ function nextEmotion(){
   //start the timer
   countdown.Start()
 
+  //hide ready button and display timer
+  $('.bu-ready').hide()
+  $('.timer').show()
+}
 
-
-  //update gloabl score local and remote
-
-
+function updateOpponentScore(score){
+  g_oppScoreLevel.css('width', score+'%')
+  g_oppScoreLabel.html(Math.round(score))
 }
