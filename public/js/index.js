@@ -67,7 +67,7 @@ async function predict() {
       let index = emotions.indexOf(g_emotionsList[g_emotionIndex])
       g_emotionLevel.css('width', Math.round(predictions[index] * 100))
 
-      g_myScore = g_myScore + (predictions[index] * 0.3)
+      g_myScore = g_myScore + (predictions[index] * 0.2)
       g_myScoreLevel.css('width', g_myScore+'%')
       g_myScoreLabel.html(Math.round(g_myScore))
 
@@ -140,6 +140,9 @@ function displayFinalScore(){
   let opponent = Number(g_oppScoreLabel.html())
 
   $('.timer').hide()
+  $('.video-feed').addClass('timeout')
+  $('.feed-info').hide()
+  $('.current-emotion').hide()
 
   if (me >= opponent) { //I won
     $('.scores-result img').attr('src', '/images/win-message.png')
@@ -162,4 +165,25 @@ function nextEmotion(){
 function updateOpponentScore(score){
   g_oppScoreLevel.css('width', score+'%')
   g_oppScoreLabel.html(Math.round(score))
+}
+
+
+
+
+
+//fix the zoom of the camera
+navigator.mediaDevices.getUserMedia({video: true})
+.then(async mediaStream => {
+  document.querySelector('video').srcObject = mediaStream
+  await sleep(1000)
+
+  const track = mediaStream.getVideoTracks()[0]
+  const capabilities = track.getCapabilities()
+  const settings = track.getSettings()
+
+  track.applyConstraints({advanced: [ {zoom: 2} ]})
+}).catch(error => console.log(error))
+
+function sleep(ms = 0) {
+  return new Promise(r => setTimeout(r, ms))
 }

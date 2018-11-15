@@ -104,6 +104,10 @@ a:hover{outline: 0;text-decoration: none;color: inherit;}
   background-size: 100%;
   background-image: url('../images/webcam-frame-neon-blue.png');
 }
+.step-02 .video-feed.timeout:before{
+  height: 105%;
+  background-image: url('../images/webcam-frame-neon-red.png');
+}
 .step-02 .video-feed .frame{
   position: absolute;
   top: 0px;
@@ -271,7 +275,7 @@ a:hover{outline: 0;text-decoration: none;color: inherit;}
 .step-02 .scores-result{
   display: none;
   width: 200px;
-  margin: 0 auto;
+  margin: 20px auto 0px;
 }
 .step-02 .scores-result img{
   width: 100%;
