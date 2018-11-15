@@ -17,8 +17,8 @@ socket.on('respond offer', function(message){ respondOffer(message)})
 socket.on('add candidate', function(message){ addCandidate(message) })
 //TODO improve the player disconnection
 socket.on('player left', function(){ location.reload() })
-socket.on('room ready', function(){ nextEmotion() })
-socket.on('next level', function(){ displayStep02() })
+socket.on('room ready', function(){ displayStep02() })
+socket.on('next level', function(){ nextEmotion() })
 
 //on click events
 $('.bu-ready').click(function(){
@@ -57,14 +57,8 @@ async function predict() {
 
     const predictions = await predictedClass.data()
 
-    // let count = 0
-    // for (pred of predictions) {
-    //   $('.emotion span').eq(count).html(Math.round(pred * 100))
-    //   count++
-    // }
-
     let index = emotions.indexOf(g_emotionsList[g_emotionIndex])
-    $('.current-emotion-level').html( Math.round(predictions[index] * 100) )
+    g_emotionLevel.css('width', Math.round(predictions[index] * 100))
 
     predictedClass.dispose()
 
@@ -75,13 +69,16 @@ async function predict() {
 let g_emotionsList = ["happy","sad","angry","scared","disgust"]
 let g_emotionIndex = 0
 
-let g_emotionLabel = $('.current-emotion .label')
+let g_emotionIcon = $('.current-emotion .icon')
+let g_emotionLevel = $('.feed-info .jauge .level')
 
 let countdown = {
   interval: null,
   duration : 5,
   Start : function() {
-    var timer = this.duration, minutes, seconds
+    console.log('timer start')
+
+    let timer = this.duration, minutes, seconds
     this.interval = setInterval(function () {
       minutes = parseInt(timer / 60, 10)
       seconds = parseInt(timer % 60, 10)
@@ -111,9 +108,10 @@ function displayStep02(){
 }
 
 function nextEmotion(){
-  //display emotion label
-  g_emotionLabel.html( g_emotionsList[g_emotionIndex] )
+  console.log('load next emotion')
 
+  //display emotion icon
+  g_emotionIcon.attr('src', '/images/emotion-'+g_emotionsList[g_emotionIndex]+'.png')
 
   //start the timer
   countdown.Start()
