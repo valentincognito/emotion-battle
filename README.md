@@ -8,7 +8,7 @@ This project is inspired by the work of several people but I want to credit this
 
 This project is a webapp mini game that uses machine learning with tensorflow.js to detect one's emotion. You share a link to your friend to join your room and then the goal is to mimic different emotions showing your face at the camera. You earn points based on how accurate your emotion is and the player with most points win the game.
 
-![](https://github.com/valentincognito/emotion-battle/tree/master/public/images/game_preview.jpg)
+![](https://github.com/valentincognito/emotion-battle/blob/master/public/images/game_preview.jpg)
 
 ### Installation
 
